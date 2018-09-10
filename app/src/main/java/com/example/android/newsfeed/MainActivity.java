@@ -1,8 +1,11 @@
 package com.example.android.newsfeed;
 
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +30,12 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<List<News>> {
 
-    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?q=International&from-date=2018-08-01&api-key=3756d40a-c260-4772-a1e5-d28a1d10720e";
+    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?q=International&show-tags=contributor&from-date=2018-08-01&api-key=3756d40a-c260-4772-a1e5-d28a1d10720e";
     private static final int NEWS_REQUEST_ID = 1;
+
+    private TextView mEmptyStateTextView;
+
+    private View progressbar;
 
     private NewsAdapter mAdapter;
 
@@ -53,6 +61,21 @@ public class MainActivity extends AppCompatActivity
 
         ListView newsListview = (ListView) findViewById(R.id.list);
 
+        ConnectivityManager cm =
+                (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = null;
+        if (cm != null) {
+            activeNetwork = cm.getActiveNetworkInfo();
+        }
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+        mEmptyStateTextView = (TextView)findViewById(R.id.empty_text_view);
+        newsListview.setEmptyView(mEmptyStateTextView);
+
+        progressbar = (View)findViewById(R.id.progress_bar);
+
         mAdapter = new NewsAdapter(this, new ArrayList<News>());
         newsListview.setAdapter(mAdapter);
 
@@ -72,8 +95,15 @@ public class MainActivity extends AppCompatActivity
 
         //Load the news data
 
-        LoaderManager loaderManager = getLoaderManager();
-        loaderManager.initLoader(NEWS_REQUEST_ID, null, this);
+        if(isConnected) {
+            LoaderManager loaderManager = getLoaderManager();
+
+            loaderManager.initLoader(NEWS_REQUEST_ID, null, this);
+        }
+        else{
+            progressbar.setVisibility(View.GONE);
+            mEmptyStateTextView.setText(R.string.no_internet_connection);
+        }
     }
 
     @Override
@@ -139,6 +169,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(Loader<List<News>> loader, List<News> news) {
+
+        progressbar.setVisibility(View.GONE);
+
+        mEmptyStateTextView.setText(R.string.no_news);
+
         mAdapter.clear();
 
         if (news != null && !news.isEmpty()) {

@@ -6,19 +6,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/india"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/circular_background"
             android:title="India" />
         <item
             android:id="@+id/technology"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/circular_background"
             android:title="Technology" />
         <item
             android:id="@+id/politics"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/circular_background"
             android:title="Politics" />
         <item
             android:id="@+id/sports"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/circular_background"
             android:title="Sports" />
     </group>
 

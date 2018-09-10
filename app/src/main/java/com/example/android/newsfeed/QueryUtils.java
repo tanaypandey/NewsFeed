@@ -127,7 +127,18 @@ public class QueryUtils {
                 String date = currentNews.getString("webPublicationDate");
                 String url = currentNews.getString("webUrl");
 
-                News news = new News(title,url, date, name);
+                List<String> contributor = new ArrayList<>();
+                JSONArray contributor_array = currentNews.getJSONArray("tags");
+
+                for (int j = 0; j < contributor_array.length(); j++) {
+
+                    JSONObject currentContributor = contributor_array.getJSONObject(j);
+                    String contributor_name;
+                    contributor_name = currentContributor.getString("webTitle");
+                    contributor.add(contributor_name);
+                }
+
+                News news = new News(title, url, date, name, contributor);
                 newsArrayList.add(news);
 
             }

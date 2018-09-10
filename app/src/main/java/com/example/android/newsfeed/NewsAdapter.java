@@ -46,6 +46,24 @@ public class NewsAdapter extends ArrayAdapter<News> {
         TextView sectionView = (TextView) listItemView.findViewById(R.id.section);
         sectionView.setText(currentNews.getSection());
 
+//        to update section text view
+     TextView authorView = (TextView) listItemView.findViewById(R.id.author);
+        List<String> author = currentNews.getContributorName();
+        if(!author.isEmpty()){
+            StringBuilder output = new StringBuilder();
+            for(int i = 0; i<author.size();i++){
+                String all_author_names = author.get(i);
+                output.append(all_author_names);
+                output.append(" & ");
+            }
+            output.deleteCharAt(output.length()-2);
+
+            authorView.setText(output);
+        }
+        else{
+            authorView.setVisibility(View.GONE);
+        }
+
         //to update title textview
         TextView titleView = (TextView) listItemView.findViewById(R.id.title);
         titleView.setText(currentNews.getTitle());
