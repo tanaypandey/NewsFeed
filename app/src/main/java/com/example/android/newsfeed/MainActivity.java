@@ -32,6 +32,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<List<News>> {
 
+<<<<<<< HEAD
     private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search";
     private static final int NEWS_REQUEST_ID = 1;
 
