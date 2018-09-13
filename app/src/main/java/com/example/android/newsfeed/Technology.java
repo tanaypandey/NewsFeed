@@ -18,6 +18,7 @@ import java.util.List;
 
 public class Technology extends Fragment implements LoaderManager.LoaderCallbacks<List<News>> {
 
+    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?q=technology&show-tags=contributor&from-date=2018-08-01&api-key=test";
     private static final int NEWS_REQUEST_ID = 1;
 
     private NewsAdapter mAdapter;

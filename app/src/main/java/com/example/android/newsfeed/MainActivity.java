@@ -34,6 +34,9 @@ public class MainActivity extends AppCompatActivity
 
 <<<<<<< HEAD
     private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search";
+=======
+    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?q=International&show-tags=contributor&from-date=2018-08-01&api-key=test";
+>>>>>>> ddbf249da5aa86fda80924e7334ccb1d8a41a445
     private static final int NEWS_REQUEST_ID = 1;
 
     private TextView mEmptyStateTextView;

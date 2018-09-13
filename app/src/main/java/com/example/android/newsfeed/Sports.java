@@ -19,6 +19,7 @@ import java.util.List;
 
 public class Sports extends Fragment implements LoaderManager.LoaderCallbacks<List<News>> {
 
+<<<<<<< HEAD
     private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?api-key=3756d40a-c260-4772-a1e5-d28a1d10720e";
 =======
     private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?q=Sports&show-tags=contributor&from-date=2018-08-01&api-key=test";
