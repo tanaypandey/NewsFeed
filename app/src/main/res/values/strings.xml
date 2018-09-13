@@ -10,6 +10,44 @@
     <string name="no_internet_connection">"there is no internet connection"</string>
     <string name="no_news">No News to load at the moment"</string>
 
+    <string name="settings_menu_item">Settings</string>
+    <string name="settings_title">News Feed Settings</string>
+    <string name="settings_country_label">Country</string>
+    <string name="settings_country_key" translatable="false">country</string>
+    <string name="settings_country_default" translatable="false">International</string>
+
+    <!-- Strings For Order-By Preference [CHAR LIMIT=30] -->
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order-by</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_newest_value</string>
+
+    <!-- Label for order-by magnitude option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_newest_label">newest</string>
+    <string name="settings_order_by_newest_value" translatable="false">newest</string>
+
+    <!-- Label for order-by magnitude option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_oldest_label">oldest</string>
+    <string name="settings_order_by_oldest_value" translatable="false">oldest</string>
+
+    <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_relevance_label">Relevance</string>
+    <string name="settings_order_by_relevance_value" translatable="false">relevance</string>
+    
+    <!--country list-->
+    <string name="settings_order_by_India_label">India</string>
+    <string name="settings_order_by_India_value" translatable="false">India</string>
+
+    <string name="settings_order_by_Pakistan_label">Pakistan</string>
+    <string name="settings_order_by_Pakistan_value" translatable="false">Pakistan</string>
+
+    <string name="settings_order_by_China_label">China</string>
+    <string name="settings_order_by_China_value" translatable="false">China</string>
+
+    <string name="settings_order_by_Japan_label">Japan</string>
+    <string name="settings_order_by_Japan_value" translatable="false">Japan</string>
+
+    <string name="settings_order_by_Canada_label">Canada</string>
+    <string name="settings_order_by_Canada_value" translatable="false">Canada</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
