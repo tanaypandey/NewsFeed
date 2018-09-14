@@ -2,11 +2,14 @@ package com.example.android.newsfeed;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +23,13 @@ import java.util.List;
 public class Sports extends Fragment implements LoaderManager.LoaderCallbacks<List<News>> {
 
 
-    private static final String GUARDIAN_REQUEST_URL =  "https://content.guardianapis.com/search?q=Sports&show-tags=contributor&from-date=2018-08-01&api-key=3756d40a-c260-4772-a1e5-d28a1d10720e";
-
+    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search";
+    private static final String apiKeyparameter = "api-key";
+    private static final String apiKey = "3756d40a-c260-4772-a1e5-d28a1d10720e";
+    public static final String orderByParameter = "order-by";
+    private static final String queryParameter = "q";
+    private static final String author = "show-tags";
+    private static final String nameOfAuthor = "contributor";
     private static final int NEWS_REQUEST_ID = 1;
 
     private NewsAdapter mAdapter;
@@ -59,8 +67,20 @@ public class Sports extends Fragment implements LoaderManager.LoaderCallbacks<Li
     @NonNull
     @Override
     public android.support.v4.content.Loader<List<News>> onCreateLoader(int id, Bundle args) {
-        return new FragmentLoader(getActivity(), GUARDIAN_REQUEST_URL);
-    }
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        String orderBy = sharedPrefs.getString(getString(R.string.settings_order_by_key), getString(R.string.settings_order_by_default));
+
+        String queryValue = sharedPrefs.getString(getString(R.string.settings_country_key), getString(R.string.settings_country_default));
+        String query = queryValue.concat(" AND Sports");
+        Log.w("value of query ", query);
+        Uri.Builder builder = Uri.parse(GUARDIAN_REQUEST_URL).buildUpon();
+        builder.appendQueryParameter(queryParameter, query)
+                .appendQueryParameter(orderByParameter, orderBy)
+                .appendQueryParameter(author, nameOfAuthor)
+                .appendQueryParameter(apiKeyparameter, apiKey);
+        Log.w("value of url : ", builder.toString());
+        return new FragmentLoader(getActivity(), builder.toString());    }
 
     @Override
     public void onLoadFinished(@NonNull android.support.v4.content.Loader<List<News>> loader, List<News> news) {

@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -33,7 +34,12 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<List<News>> {
 
     private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search";
-
+    private static final String apiKeyparameter = "api-key";
+    private static final String apiKey = "3756d40a-c260-4772-a1e5-d28a1d10720e";
+    public static final String orderByParameter = "order-by";
+    private static final String queryParameter = "q";
+    private static final String author = "show-tags";
+    private static final String nameOfAuthor = "contributor";
     private static final int NEWS_REQUEST_ID = 1;
 
     private TextView mEmptyStateTextView;
@@ -125,8 +131,8 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.india) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_main, new india()).commit();
+        if (id == R.id.entertainment) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_main, new Entertainment()).commit();
         } else if (id == R.id.technology) {
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, new Technology()).commit();
 
@@ -145,17 +151,19 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public Loader<List<News>> onCreateLoader(int id, Bundle args) {
-        // Create a new loader for the given URL
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String query = sharedPrefs.getString(getString(R.string.settings_country_key), getString(R.string.settings_country_default));
-        String orderBy = sharedPrefs.getString(getString(R.string.settings_order_by_key),getString(R.string.settings_order_by_default));
-        Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
-        Uri.Builder uriBuilder = baseUri.buildUpon();
-        uriBuilder.appendQueryParameter("order-by",orderBy);
-        uriBuilder.appendQueryParameter("q",query);
-        uriBuilder.appendQueryParameter("api-key","3756d40a-c260-4772-a1e5-d28a1d10720e");
 
-        return new NewsLoader(this, GUARDIAN_REQUEST_URL);
+        String orderBy = sharedPrefs.getString(getString(R.string.settings_order_by_key), getString(R.string.settings_order_by_default));
+
+        String queryValue = sharedPrefs.getString(getString(R.string.settings_country_key), getString(R.string.settings_country_default));
+        Log.w("value of query ", queryValue);
+        Uri.Builder builder = Uri.parse(GUARDIAN_REQUEST_URL).buildUpon();
+        builder.appendQueryParameter(queryParameter, queryValue)
+                .appendQueryParameter(orderByParameter, orderBy)
+                .appendQueryParameter(author, nameOfAuthor)
+                .appendQueryParameter(apiKeyparameter, apiKey);
+        Log.w("value of url : ", builder.toString());
+        return new NewsLoader(this, builder.toString());
     }
 
     @Override

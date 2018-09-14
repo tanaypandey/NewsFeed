@@ -5,9 +5,9 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/india"
+            android:id="@+id/entertainment"
             android:icon="@drawable/circular_background"
-            android:title="India" />
+            android:title="Entertainment" />
         <item
             android:id="@+id/technology"
             android:icon="@drawable/circular_background"
