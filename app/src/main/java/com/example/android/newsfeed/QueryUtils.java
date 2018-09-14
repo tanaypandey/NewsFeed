@@ -1,6 +1,7 @@
 package com.example.android.newsfeed;
 
 import android.app.DownloadManager;
+import android.media.Image;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -127,6 +128,8 @@ public class QueryUtils {
                 String date = currentNews.getString("webPublicationDate");
                 String url = currentNews.getString("webUrl");
 
+                JSONObject fields = news_array.getJSONObject(i).getJSONObject("fields");
+                String thumbnail = fields.getString("thumbnail");
                 List<String> contributor = new ArrayList<>();
                 JSONArray contributor_array = currentNews.getJSONArray("tags");
 
@@ -138,7 +141,7 @@ public class QueryUtils {
                     contributor.add(contributor_name);
                 }
 
-                News news = new News(title, url, date, name, contributor);
+                News news = new News(title, url, date, name, contributor,thumbnail);
                 newsArrayList.add(news);
 
             }

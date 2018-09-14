@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity
     public static final String orderByParameter = "order-by";
     private static final String queryParameter = "q";
     private static final String author = "show-tags";
+    private static final String showFieldsParameter = "show-fields";
+    private static final String showFieldsValue= "thumbnail";
     private static final String nameOfAuthor = "contributor";
     private static final int NEWS_REQUEST_ID = 1;
 
@@ -160,6 +162,7 @@ public class MainActivity extends AppCompatActivity
         Uri.Builder builder = Uri.parse(GUARDIAN_REQUEST_URL).buildUpon();
         builder.appendQueryParameter(queryParameter, queryValue)
                 .appendQueryParameter(orderByParameter, orderBy)
+                .appendQueryParameter(showFieldsParameter, showFieldsValue)
                 .appendQueryParameter(author, nameOfAuthor)
                 .appendQueryParameter(apiKeyparameter, apiKey);
         Log.w("value of url : ", builder.toString());

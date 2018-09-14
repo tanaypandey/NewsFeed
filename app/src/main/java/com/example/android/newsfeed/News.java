@@ -12,15 +12,17 @@ public class News {
     private String mUrl;
     private String mDateTime;
     private String mSection;
+    private String mThumbnail;
     private List<String> mContributorName;
 
     //public constructor
-    public News(String Title, String Url, String Datetime, String Section, List<String> ContributorName){
+    public News(String Title, String Url, String Datetime, String Section, List<String> ContributorName, String Thumbnail){
         mTitle = Title;
         mUrl = Url;
         mDateTime = Datetime;
         mSection = Section;
         mContributorName = ContributorName;
+        mThumbnail = Thumbnail;
     }
 
     //public methods
@@ -42,5 +44,9 @@ public class News {
 
     public List<String> getContributorName(){
         return mContributorName;
+    }
+
+    public String getThumbnail() {
+        return mThumbnail;
     }
 }
