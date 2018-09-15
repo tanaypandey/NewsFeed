@@ -55,5 +55,10 @@
     <string name="GPSAlertDialogMessage">Allow location access</string>
     <string name="cancel">cancel</string>
 
+    <string name="body">this section to containt eh headline of the article that will be open whent this text view is clicked so it should contain atleast 4 lines of code"</string>
+    <string name="date">22/09/2018</string>
+    <string name="time">09:50</string>
+    <string name="section">section</string>
+    <string name="author">author</string>
 
 </resources>

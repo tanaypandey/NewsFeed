@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity
                 .appendQueryParameter(orderByParameter, orderBy)
                 .appendQueryParameter(showFieldsParameter, showFieldsValue)
                 .appendQueryParameter(author, nameOfAuthor)
+                .appendQueryParameter("pageSize", "30")
                 .appendQueryParameter(apiKeyparameter, apiKey);
         Log.w("value of url : ", builder.toString());
         return new NewsLoader(this, builder.toString());
