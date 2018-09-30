@@ -17,6 +17,11 @@ buildscript {
 
 allprojects {
     repositories {
+        maven {
+            url "https://s3.amazonaws.com/repo.commonsware.com"
+        }
+        jcenter()
+        maven { url "https://jitpack.io" }
         google()
         jcenter()
     }

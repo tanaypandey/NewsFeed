@@ -1,5 +1,7 @@
 package com.example.android.newsfeed;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -7,6 +9,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -17,7 +20,9 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public static class EarthquakePreferenceFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener {
-    @Override
+
+
+        @Override
         public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.xml);
@@ -27,10 +32,11 @@ public class SettingsActivity extends AppCompatActivity {
         Preference orderBy = findPreference(getString(R.string.settings_order_by_key));
         bindPreferenceSummaryToValue(orderBy);
 
+
     }
 
         @Override
-        public boolean onPreferenceChange(Preference preference, Object value) {
+        public boolean onPreferenceChange(Preference preference, Object value ) {
             String stringValue = value.toString();
             if(preference instanceof ListPreference){
                 ListPreference listPreference = (ListPreference)preference;
@@ -43,7 +49,8 @@ public class SettingsActivity extends AppCompatActivity {
                     preference.setSummary(stringValue);
                 }
             }
-            return true;        }
+            return true;
+    }
 
         private void bindPreferenceSummaryToValue(Preference preference) {
             preference.setOnPreferenceChangeListener(this);
@@ -52,4 +59,11 @@ public class SettingsActivity extends AppCompatActivity {
             onPreferenceChange(preference, preferenceString);
         }
     }
+
+    @Override
+    protected void onPause() {
+        Log.w("paused","paused");
+        super.onPause();
+    }
+
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_height="300dp"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/shimmer_view"
+    android:gravity="bottom"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="300dp"
+        android:layout_height="125dp"
+        android:gravity="bottom"
+        android:paddingLeft="15dp"
+        android:text="News"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:scrollHorizontally="true"
+        android:textColor="@android:color/black"
+        android:textSize="48sp"
+        android:textStyle="bold" />
+</LinearLayout>

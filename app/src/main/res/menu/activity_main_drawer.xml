@@ -7,19 +7,22 @@
         <item
             android:id="@+id/entertainment"
             android:icon="@drawable/circular_background"
-            android:title="Entertainment" />
+            android:title="Entertainment"
+            android:iconTint="@color/magnitude1"/>
         <item
             android:id="@+id/technology"
             android:icon="@drawable/circular_background"
-            android:title="Technology" />
+            android:title="Technology"
+            android:iconTint="@color/magnitude1"/>
         <item
             android:id="@+id/politics"
             android:icon="@drawable/circular_background"
-            android:title="Politics" />
+            android:title="Politics"
+            android:iconTint="@color/magnitude1"/>
         <item
             android:id="@+id/sports"
             android:icon="@drawable/circular_background"
-            android:title="Sports" />
+            android:title="Sports"
+            android:iconTint="@color/magnitude1"/>
     </group>
-
 </menu>

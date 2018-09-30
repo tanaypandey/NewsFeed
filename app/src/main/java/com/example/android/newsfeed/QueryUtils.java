@@ -130,6 +130,7 @@ public class QueryUtils {
 
                 JSONObject fields = news_array.getJSONObject(i).getJSONObject("fields");
                 String thumbnail = fields.getString("thumbnail");
+                String body = fields.getString("bodyText");
                 List<String> contributor = new ArrayList<>();
                 JSONArray contributor_array = currentNews.getJSONArray("tags");
 
@@ -141,7 +142,7 @@ public class QueryUtils {
                     contributor.add(contributor_name);
                 }
 
-                News news = new News(title, url, date, name, contributor,thumbnail);
+                News news = new News(title, url, date, name, contributor,thumbnail,body);
                 newsArrayList.add(news);
 
             }

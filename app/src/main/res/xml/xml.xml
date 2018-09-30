@@ -16,4 +16,9 @@
         android:entryValues="@array/settings_order_by_values"
         android:key="@string/settings_order_by_key"
         android:title="@string/settings_order_by_label"/>
+
+    <SwitchPreference
+        android:key="@string/settings_theme_key"
+        android:title="@string/settings_theme_label"/>
+
 </PreferenceScreen>

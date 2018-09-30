@@ -1,7 +1,9 @@
 package com.example.android.newsfeed;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
+import android.media.Image;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.daimajia.swipe.adapters.ArraySwipeAdapter;
+import com.daimajia.swipe.interfaces.SwipeAdapterInterface;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -20,29 +24,38 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsAdapter extends ArrayAdapter<News> {
+import me.anwarshahriar.calligrapher.Calligrapher;
 
-    public NewsAdapter(Context context, List<News> news) {
+public class NewsAdapter extends ArrayAdapter<News>{
+
+    Context mcontext;
+    Activity mactivity;
+    public NewsAdapter(Context context, List<News> news, Activity activity) {
         super(context, 0, news);
+        mcontext = context;
+        mactivity = activity;
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View listItemView = convertView;
+         View listItemView = convertView;
         if (listItemView == null) {
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.news_items, parent, false);
+             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.news_items, parent, false);
         }
         //find the news at a given position in the list parsed
-        News currentNews = getItem(position);
+        final News currentNews = getItem(position);
 
         //to load thumbnail
 
         ImageView thumbnail = (ImageView)listItemView.findViewById(R.id.thumbnail);
         Picasso.get().load(currentNews.getThumbnail()).into(thumbnail);
 
+//        Calligrapher calligrapher = new Calligrapher(mcontext);
+//        calligrapher.setFont(mactivity, "GoogleSans-Medium.ttf", true);
+
         //to update the circular view
-        TextView circularView = (TextView)listItemView.findViewById(R.id.circular);
+        final TextView circularView = (TextView)listItemView.findViewById(R.id.circular);
         String sectionForCircularView = currentNews.getSection().substring(0, 1);
         circularView.setText(sectionForCircularView);
 
@@ -50,6 +63,15 @@ public class NewsAdapter extends ArrayAdapter<News> {
         GradientDrawable circularBackgroundView = (GradientDrawable)circularView.getBackground();
         int circleBackgroundColor = getCircleBackgroundColour(sectionForCircularView);
         circularBackgroundView.setColor(circleBackgroundColor);
+
+//        circularView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                circularView.setText("");
+//                bookmark.setImageResource(R.drawable.bookmarked);
+//                bookmark.setVisibility(View.VISIBLE);
+//            }
+//        });
 
         //to update section text view
         TextView sectionView = (TextView) listItemView.findViewById(R.id.section);

@@ -9,12 +9,14 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,11 @@ public class Technology extends Fragment implements LoaderManager.LoaderCallback
     private static final int NEWS_REQUEST_ID = 1;
 
     private NewsAdapter mAdapter;
+    TextView header;
+    SwipeRefreshLayout swipeToRefresh;
+
+    List<News> newsFromLoader;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,7 +47,7 @@ public class Technology extends Fragment implements LoaderManager.LoaderCallback
 
         ListView newsListview = (ListView) getActivity().findViewById(R.id.list);
 
-        mAdapter = new NewsAdapter(getContext(), new ArrayList<News>());
+        mAdapter = new NewsAdapter(getContext(), new ArrayList<News>(), getActivity());
         newsListview.setAdapter(mAdapter);
 
         newsListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -51,14 +58,50 @@ public class Technology extends Fragment implements LoaderManager.LoaderCallback
 
                 Uri newsUri = Uri.parse(currentNews.getUrl());
 
-                Intent newsIntent = new Intent(Intent.ACTION_VIEW, newsUri);
-
+                Intent newsIntent = new Intent(getActivity(), NewsExpanded.class);
+                newsIntent.putExtra("news",newsFromLoader.get(position-1));
                 startActivity(newsIntent);
             }
         });
+        newsListview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                News currentNews = mAdapter.getItem(position-1);
 
+                Uri newsUri = Uri.parse(currentNews.getUrl());
+
+                Intent newsIntent = new Intent(Intent.ACTION_VIEW, newsUri);
+
+                startActivity(newsIntent);
+                return  true;
+            }
+        });
         //Load the news data
+        header = (TextView) getActivity().findViewById(R.id.header);
+        swipeToRefresh = (SwipeRefreshLayout) getActivity().findViewById(R.id.swiperefresh);
 
+//        swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//
+//                loaderManager.destroyLoader(1);
+//
+//                progressbar.setVisibility(View.VISIBLE);
+//                mEmptyStateTextView.setVisibility(View.GONE);
+//
+//                if (isConnected) {
+//                    loaderManager.restartLoader(1, null, MainActivity.this);
+//
+//                } else {
+//                    progressbar.setVisibility(View.GONE);
+//                    mEmptyStateTextView.setText(R.string.no_internet_connection);
+//
+//                    swipeToRefresh.setRefreshing(false);
+//
+//                }
+//
+//            }
+//        });
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.initLoader(NEWS_REQUEST_ID, null, Technology.this);
         return rootView;
@@ -72,12 +115,16 @@ public class Technology extends Fragment implements LoaderManager.LoaderCallback
         String orderBy = sharedPrefs.getString(getString(R.string.settings_order_by_key), getString(R.string.settings_order_by_default));
 
         String queryValue = sharedPrefs.getString(getString(R.string.settings_country_key), getString(R.string.settings_country_default));
-        String query = queryValue.concat(" AND Technology");
+        String query = queryValue;
         Log.w("value of query ", query);
+//        header.setText("Technology in "+queryValue);
+
         Uri.Builder builder = Uri.parse(GUARDIAN_REQUEST_URL).buildUpon();
         builder.appendQueryParameter(queryParameter, query)
                 .appendQueryParameter(orderByParameter, orderBy)
-                .appendQueryParameter(showFieldsParameter, showFieldsValue)
+                .appendQueryParameter("section","technology")
+                .appendQueryParameter(showFieldsParameter, "bodyText,thumbnail")
+                .appendQueryParameter("page-size", "30")
                 .appendQueryParameter(author, nameOfAuthor)
                 .appendQueryParameter(apiKeyparameter, apiKey);
         Log.w("value of url : ", builder.toString());
@@ -88,6 +135,8 @@ public class Technology extends Fragment implements LoaderManager.LoaderCallback
         mAdapter.clear();
         if(news != null && !news.isEmpty()){
             mAdapter.addAll(news);
+            newsFromLoader = news;
+
         }
     }
 

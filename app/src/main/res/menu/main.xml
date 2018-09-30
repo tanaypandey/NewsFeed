@@ -6,4 +6,10 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/trending_button_1"
+        android:icon="@drawable/trendingtwo"
+        android:orderInCategory="100"
+        android:title="trending"
+        app:showAsAction="always" />
 </menu>
