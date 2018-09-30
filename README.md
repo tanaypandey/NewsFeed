@@ -1,9 +1,9 @@
 # NewsFeed
 
--> The app the front page that diplays the news from around the world from various sectors.
--> The custom navigation drawer has various sectors to displays news from various sectors that displays the top trending news from around the world.
-->The app has section that displays the news to be read from within the app. this read news section has day well as night reading mode.
--> als it includes pages that shows all of the news that is trending around the world.
+# -> The app the front page that diplays the news from around the world from various sectors.
+# -> The custom navigation drawer has various sectors to displays news from various sectors that displays the top trending news from around the world.
+# ->The app has section that displays the news to be read from within the app. this read news section has day well as night reading mode.
+# -> als it includes pages that shows all of the news that is trending around the world.
 
 
 
